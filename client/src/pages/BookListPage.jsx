@@ -17,19 +17,19 @@ export default function BookListPage() {
       setLoading(true);
       const queryParams = new URLSearchParams();
       
-      if (filters.genre) {
-        queryParams.append('genre', filters.genre);
-      }
-      if (filters.author) {
-        queryParams.append('author', filters.author);
-      }
-      if (filters.featured) {
-        queryParams.append('featured', filters.featured);
-      }
+      if (filters.genre) queryParams.append('genre', filters.genre);
+      if (filters.author) queryParams.append('author', filters.author);
+      if (filters.featured) queryParams.append('featured', filters.featured);
 
       const url = `http://localhost:5000/books${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
+      console.log('Fetching books from:', url); // Debug log
+      
       const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
+      console.log('Received books:', data); // Debug log
       
       setBooks(data);
       setFilteredBooks(data);

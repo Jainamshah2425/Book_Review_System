@@ -2,37 +2,12 @@ const Book = require('../models/Book');
 
 exports.getBooks = async (req, res) => {
   try {
-    const { search, genre, author, featured } = req.query;
-    let query = {};
-
-    // Search functionality
-    if (search) {
-      query.$or = [
-        { title: { $regex: search, $options: 'i' } },
-        { author: { $regex: search, $options: 'i' } },
-        { description: { $regex: search, $options: 'i' } }
-      ];
-    }
-
-    // Filter by genre
-    if (genre) {
-      query.genre = { $in: [genre] };
-    }
-
-    // Filter by author
-    if (author) {
-      query.author = { $regex: author, $options: 'i' };
-    }
-
-    // Filter featured books
-    if (featured === 'true') {
-      query.featured = true;
-    }
-
-    const books = await Book.find(query).sort({ createdAt: -1 });
+    const books = await Book.find();
+    console.log('Books found:', books.length); // Debug log
     res.json(books);
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('Error fetching books:', error);
+    res.status(500).json({ message: 'Server Error' });
   }
 };
 
@@ -44,7 +19,8 @@ exports.getBook = async (req, res) => {
     }
     res.json(book);
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('Error in getBook:', error);
+    res.status(500).json({ message: 'Error fetching book' });
   }
 };
 

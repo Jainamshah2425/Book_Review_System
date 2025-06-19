@@ -3,6 +3,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const bookRoutes = require('./routes/books');
 const reviewRoutes = require('./routes/reviews');
+const userRoutes = require('./routes/users');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 // Routes
 app.use('/books', bookRoutes);
 app.use('/reviews', reviewRoutes);
+app.use('/users', userRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {

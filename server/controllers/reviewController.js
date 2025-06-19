@@ -1,5 +1,6 @@
 const Review = require('../models/Review');
 
+// Get reviews for a specific book
 exports.getBookReviews = async (req, res) => {
   try {
     const reviews = await Review.find({ bookId: req.params.bookId })
@@ -8,10 +9,11 @@ exports.getBookReviews = async (req, res) => {
     res.json(reviews);
   } catch (error) {
     console.error('Error fetching reviews:', error);
-    res.status(500).json({ message: 'Error fetching reviews' });
+    res.status(500).json({ message: 'Error fetching reviews', error: error.message });
   }
 };
 
+// Add a new review
 exports.addReview = async (req, res) => {
   try {
     const { bookId, rating, comment } = req.body;
@@ -48,7 +50,7 @@ exports.addReview = async (req, res) => {
     res.status(201).json(populatedReview);
   } catch (error) {
     console.error('Error adding review:', error);
-    res.status(500).json({ message: 'Error adding review' });
+    res.status(500).json({ message: 'Error adding review', error: error.message });
   }
 };
 

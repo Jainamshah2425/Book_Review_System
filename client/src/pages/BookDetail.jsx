@@ -53,56 +53,46 @@ export default function BookDetail() {
   }, [id, navigate]);
 
   const handleReviewSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        alert('Please login to submit a review');
-        return;
-      }
-
-      const response = await fetch('http://localhost:5000/reviews', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          bookId: id,
-          rating: parseInt(newReview.rating),
-          comment: newReview.comment
-        })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to submit review');
-      }
-
-      const newReviewData = await response.json();
-      
-      // Add user information to the new review
-      const reviewWithUser = {
-        ...newReviewData,
-        user: {
-          username: user.username
-        },
-        createdAt: new Date().toISOString()
-      };
-
-      // Add the new review to the beginning of the reviews array
-      setReviews(prevReviews => [reviewWithUser, ...prevReviews]);
-      
-      // Reset form
-      setNewReview({ rating: 5, comment: '' });
-      
-      // Show success message
-      alert('Review submitted successfully!');
-    } catch (error) {
-      console.error('Error submitting review:', error);
-      alert(error.message || 'Failed to submit review. Please try again.');
+  e.preventDefault();
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Please login to submit a review');
+      return;
     }
-  };
+
+    const response = await fetch('http://localhost:5000/reviews', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        bookId: id,
+        rating: parseInt(newReview.rating),
+        comment: newReview.comment
+      })
+    });
+
+    if (!response.ok) {
+      let errorMessage = 'Failed to submit review';
+      try {
+        const error = await response.json();
+        errorMessage = error.message || errorMessage;
+      } catch (error) {}
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+    setReviews(prevReviews => [data, ...prevReviews]);
+    setNewReview({ rating: 5, comment: '' });
+    alert('Review submitted successfully!');
+  } catch (error) {
+    console.error('Error submitting review:', error);
+    alert(error.message || 'Failed to submit review');
+  }
+};
+
 
   if (loading) return <div className="text-center py-8">Loading...</div>;
   if (error) return <div className="text-center py-8 text-red-600">{error}</div>;
@@ -156,6 +146,7 @@ export default function BookDetail() {
             <button 
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+              
             >
               Submit Review
             </button>
