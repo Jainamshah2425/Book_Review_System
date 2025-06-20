@@ -17,7 +17,9 @@ If you are developing a production application, we recommend using TypeScript wi
 
 1.Clone repository
 
-```git clone https://github.com/Jainamshah2425/Book_Review_System```
+```
+git clone https://github.com/Jainamshah2425/Book_Review_System
+```
 
 2.Directory for frontend
 
@@ -34,10 +36,13 @@ If you are developing a production application, we recommend using TypeScript wi
    ```
 
 5. Directory for backend
-    `cd server`
+   
+   `cd server`
+   
     `npm install`
    
-6. Start node server
+7. Start node server
+
    `node server.js`
 
 
