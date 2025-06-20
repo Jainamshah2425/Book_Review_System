@@ -41,12 +41,12 @@ If you are developing a production application, we recommend using TypeScript wi
 2. After successful authentication, users are redirected to the home page
 3. All routes except login and signup are protected
 4. JWT tokens are stored in localStorage for persistent sessions
+5. Only Admin can add books
 
 ## Pages
 
 - `/login` - User login
 - `/signup` - User registration
-- `/` - Home page with featured books (protected)
 - `/books` - Browse all books (protected)
 - `/books/:id` - Book details (protected)
 - `/users/:id` - User profile (protected)
