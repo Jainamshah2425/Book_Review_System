@@ -41,7 +41,7 @@ git clone https://github.com/Jainamshah2425/Book_Review_System
    
     `npm install`
    
-7. Start node server
+7.Make sure you enter your secret values in .env and then Start node server
 
    `node server.js`
 
