@@ -20,12 +20,14 @@ If you are developing a production application, we recommend using TypeScript wi
    npm install
    ```
 
-2. Make sure the server is running on `http://localhost:5000`
-
-3. Start the development server:
+2. Start the development server:
    ```bash
    npm run dev
    ```
+
+2. Make sure the node server is running on `http://localhost:5000`
+
+
 
 ## Features
 
