@@ -15,17 +15,25 @@ If you are developing a production application, we recommend using TypeScript wi
 
 ## Setup Instructions
 
-1. Install dependencies:
+1.Clone repository
+```git clone https://github.com/Jainamshah2425/Book_Review_System```
+2.Directory for frontend
+```cd client```
+3. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the development server:
+4. Start the development server:
    ```bash
    npm run dev
    ```
 
-2. Make sure the node server is running on `http://localhost:5000`
+5. Directory for backend
+    `cd server`
+    `npm install`
+6. Start node server
+   `node server.js`
 
 
 
